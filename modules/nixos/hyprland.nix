@@ -1,4 +1,4 @@
-# Hyprland (из апстрим-флейка) и системные службы для оболочки Panacea.
+# Hyprland (из апстрим-флейка). Службы для оболочки — в panacea.nix.
 { inputs, pkgs, ... }:
 
 let
@@ -18,10 +18,4 @@ in
     portalPackage = hyprPkgs.xdg-desktop-portal-hyprland;
     xwayland.enable = true;
   };
-
-  # Службы, которые нужны Panacea (в GNOME они и так включены)
-  services.power-profiles-daemon.enable = true;
-  hardware.bluetooth.enable = false;
-  services.upower.enable = true;
-  services.udisks2.enable = true;
 }

@@ -1,22 +1,14 @@
-# Терминальные утилиты и шелл.
+# Терминальные утилиты. fish и его конфиг ведёт Panacea, поэтому HM их не трогает.
 { pkgs, ... }:
 
 {
-  programs.fish.enable = true;
-  programs.bash.enable = true;
-
-  home.shellAliases = {
-    # --sudo: конфиг вычисляется от твоего пользователя, root нужен только для активации
-    rebuild = "nixos-rebuild switch --flake ~/.config/nixconf#nixos --sudo";
-  };
-
   home.packages = with pkgs; [
     btop
-    eza
-    zoxide
-    bat
-    fastfetch
-    yazi
-    pciutils
+
+    # Команда `rebuild` во всех шеллах (bash, fish, ...).
+    # --sudo: конфиг вычисляется от твоего пользователя, root нужен только для активации
+    (writeShellScriptBin "rebuild" ''
+      exec nixos-rebuild switch --flake "$HOME/.config/nixconf#nixos" --sudo "$@"
+    '')
   ];
 }

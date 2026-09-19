@@ -1,4 +1,4 @@
-# Шрифты, иконки, курсор.
+# Шрифты и иконки (курсор — в panacea.nix).
 { pkgs, ... }:
 
 {
@@ -10,6 +10,5 @@
     noto-fonts-color-emoji
     noto-fonts-cjk-sans
     papirus-icon-theme
-    bibata-cursors
   ];
 }

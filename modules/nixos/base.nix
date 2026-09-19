@@ -38,12 +38,13 @@
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # --- Пользователь ---
+  # fish нужен как login-шелл: в нём живут алиасы и приглашение из Panacea
   programs.fish.enable = true;
-  # users.users.${user}.shell = pkgs.fish;  # раскомментируй, чтобы fish стал login-шеллом
 
   users.users.${user} = {
     isNormalUser = true;
     description = "Gefest";
+    shell = pkgs.fish;
     extraGroups = [ "networkmanager" "wheel" "video" "input" ];
   };
 

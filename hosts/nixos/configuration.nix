@@ -11,6 +11,7 @@
     ../../modules/nixos/audio.nix
     ../../modules/nixos/gnome.nix
     ../../modules/nixos/hyprland.nix
+    ../../modules/nixos/panacea.nix
     ../../modules/nixos/gaming.nix
   ];
 
