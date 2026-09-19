@@ -81,6 +81,7 @@ in
 
   # Курсор: Bibata Modern Classic, 24 px — для Hyprland, GTK и Xwayland сразу
   home.pointerCursor = {
+    enable = true;
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Classic";
     size = 24;

@@ -7,8 +7,8 @@
   home.packages = with pkgs; [
     telegram-desktop
     onlyoffice-desktopeditors
-    openrgb
-    openrgb-plugin-effects
+    #openrgb
+    #openrgb-with-all-plugins
     qbittorrent
     amnezia-vpn
 
