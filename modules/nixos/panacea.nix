@@ -30,5 +30,8 @@
   users.users.${user}.extraGroups = [ "i2c" ];
 
   # Формат времени en_GB (24 часа), как в install.sh; env.lua в hypr тоже его просит
+  i18n.supportedLocales = [
+    "en_GB.UTF-8/UTF-8"
+  ];
   i18n.extraLocaleSettings.LC_TIME = "en_GB.UTF-8";
 }

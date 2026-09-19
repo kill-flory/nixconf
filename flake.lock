@@ -441,6 +441,22 @@
         "type": "github"
       }
     },
+    "panacea": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789387851,
+        "narHash": "sha256-WwNrlswxnLjoMjJIePziqrcu8IFddye6CDlfrz+QoKQ=",
+        "owner": "EnsixD",
+        "repo": "Panacea",
+        "rev": "12ecda2ac340ac99cf357ae74761b115591eca06",
+        "type": "github"
+      },
+      "original": {
+        "owner": "EnsixD",
+        "repo": "Panacea",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -488,6 +504,7 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixpkgs": "nixpkgs_2",
+        "panacea": "panacea",
         "quickshell": "quickshell",
         "zen-browser": "zen-browser"
       }

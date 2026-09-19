@@ -19,6 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    panacea = {
+      url = "github:EnsixD/Panacea";
+      flake = false;
+    };
+
     # Zen Browser — пока не в nixpkgs
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";

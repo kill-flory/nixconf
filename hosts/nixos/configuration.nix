@@ -5,7 +5,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-
+    ../../modules/nixos/openrgb.nix
     ../../modules/nixos/base.nix
     ../../modules/nixos/nvidia.nix
     ../../modules/nixos/audio.nix
@@ -13,6 +13,8 @@
     ../../modules/nixos/hyprland.nix
     ../../modules/nixos/panacea.nix
     ../../modules/nixos/gaming.nix
+    ../../modules/nixos/boot.nix
+    ../../modules/nixos/sddm.nix
   ];
 
   system.stateVersion = "26.05";

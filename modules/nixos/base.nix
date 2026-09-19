@@ -3,10 +3,10 @@
 
 {
   # --- Загрузчик ---
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  #boot.loader.systemd-boot.enable = true;
+  #boot.loader.efi.canTouchEfiVariables = true;
   # Если после обновления ядра сломается nvidia — замени на pkgs.linuxPackages
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # --- Nix ---
   nix.settings = {
@@ -26,6 +26,12 @@
 
   time.timeZone = "Europe/Minsk";
   i18n.defaultLocale = "ru_RU.UTF-8";
+    i18n.supportedLocales = [
+    "ru_RU.UTF-8/UTF-8"
+    "en_US.UTF-8/UTF-8"
+    "en_GB.UTF-8/UTF-8"
+    "C.UTF-8/UTF-8"
+  ];
 
   services.xserver.xkb = {
     layout = "us,ru";

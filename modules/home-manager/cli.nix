@@ -4,6 +4,9 @@
 {
   home.packages = with pkgs; [
     btop
+    lavat
+    
+
 
     # Команда `rebuild` во всех шеллах (bash, fish, ...).
     # --sudo: конфиг вычисляется от твоего пользователя, root нужен только для активации
