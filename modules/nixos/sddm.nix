@@ -19,10 +19,11 @@ in
     enable = true;
     package = pkgs.kdePackages.sddm; # Qt 6, как ждёт тема
     theme = "panacea";
+    wayland.enable = true; 
     # Экран входа на X11: с проприетарным NVIDIA это надёжнее. Сами сессии всё равно Wayland.
     # Попробовать Wayland-greeter: wayland.enable = true; (и убрать services.xserver.enable ниже)
   };
-  services.xserver.enable = true;
+  #services.xserver.enable = true;
 
   environment.systemPackages = [ sddmTheme ];
 
