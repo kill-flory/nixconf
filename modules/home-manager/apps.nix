@@ -3,6 +3,7 @@
 
 {
   programs.firefox.enable = true;
+  
 
   home.packages = with pkgs; [
     telegram-desktop
@@ -16,9 +17,12 @@
     micro
     vscodium
     discord
+    vesktop
     yandex-music
     
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
         (writeShellScriptBin "zen-browser" ''exec zen-beta "$@"'')  
   ];
+
+
 }

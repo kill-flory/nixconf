@@ -4,9 +4,15 @@
 let
   # Тема должна лежать в share/sddm/themes/<имя> внутри пакета
   sddmTheme = pkgs.runCommand "sddm-theme-panacea" { } ''
-    mkdir -p $out/share/sddm/themes
-    cp -r --no-preserve=mode ${inputs.panacea}/sddm/panacea $out/share/sddm/themes/panacea
-  '';
+  d=$out/share/sddm/themes/panacea
+  mkdir -p $out/share/sddm/themes
+  cp -r --no-preserve=mode ${inputs.panacea}/sddm/panacea $d
+
+  # SDDM 0.21 запускает Qt6-greeter только при QtVersion=6 в metadata.desktop
+  m=$d/metadata.desktop
+  sed -i '/^QtVersion=/d' $m
+  sed -i '/^\[SddmGreeterTheme\]/a QtVersion=6' $m
+'';
 in
 {
   services.displayManager.sddm = {

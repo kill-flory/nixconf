@@ -13,6 +13,9 @@
     # nixpkgs намеренно НЕ подменяем (follows), иначе не сработает бинарный кэш hyprland.cachix.org
     hyprland.url = "github:hyprwm/Hyprland";
 
+        # OpenRGB с плагинами временно из старого nixpkgs: в свежем плагины не грузятся (nixpkgs#565198)
+    nixpkgs-openrgb.url = "github:NixOS/nixpkgs/8ce4ef6cb6f871616146b9fe26d2a5ae594e94fe";
+
     # Quickshell — тулкит, на котором построен Panacea
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";

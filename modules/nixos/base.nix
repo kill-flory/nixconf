@@ -24,6 +24,8 @@
   networking.hostName = hostname;
   networking.networkmanager.enable = true;
 
+  programs.amnezia-vpn.enable = true;
+
   time.timeZone = "Europe/Minsk";
   i18n.defaultLocale = "ru_RU.UTF-8";
     i18n.supportedLocales = [
