@@ -15,6 +15,7 @@
     ../../modules/nixos/gaming.nix
     ../../modules/nixos/boot.nix
     ../../modules/nixos/sddm.nix
+    ../../modules/nixos/fl-studio.nix
   ];
 
   system.stateVersion = "26.05";

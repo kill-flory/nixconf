@@ -8,6 +8,7 @@
     ../../modules/home-manager/cli.nix
     ../../modules/home-manager/fonts.nix
     ../../modules/home-manager/apps.nix
+    
   ];
 
   home.stateVersion = "26.05";
