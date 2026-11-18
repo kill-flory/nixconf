@@ -16,6 +16,7 @@
     ../../modules/nixos/boot.nix
     ../../modules/nixos/sddm.nix
     ../../modules/nixos/fl-studio.nix
+       ../../modules/nixos/hud.nix
   ];
 
   system.stateVersion = "26.05";

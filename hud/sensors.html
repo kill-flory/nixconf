@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PC HUD · датчики</title><style>
+:root{--bg:#070b14;--tx:#eef2ff;--mu:#7d88ad;--g:#3ee6a8;--c:#38bdf8;--o:#ff9a3c;--y:#ffc933;--r:#ff5d73;--amb:80,120,255;
+--mono:"JetBrains Mono","SF Mono",ui-monospace,Consolas,monospace;--sans:"Inter","Segoe UI",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.4 var(--sans);min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.bg i{position:absolute;border-radius:50%;filter:blur(110px);opacity:.45;transition:background 1s}
+.bg i:nth-child(1){width:55vw;height:55vw;left:-15vw;top:-20vw;background:rgb(var(--amb))}
+.bg i:nth-child(2){width:45vw;height:45vw;right:-10vw;bottom:-18vw;background:#ff9a3c33}
+.bg::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,#0000 0 3px,#0000000d 3px 4px)}
+main{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:22px;padding:26px;max-width:1500px;margin:auto}
+@media(max-width:1100px){main{grid-template-columns:1fr 1fr}.case{grid-column:1/-1}}
+@media(max-width:700px){main{grid-template-columns:1fr;padding:12px}}
+.card{position:relative;padding:20px 22px;border-radius:22px;background:linear-gradient(160deg,#131a2fcc,#0a0f1dcc);
+backdrop-filter:blur(14px);box-shadow:0 20px 60px #0009,inset 0 0 0 1px #ffffff12;--a:var(--g)}
+.card::before{content:"";position:absolute;left:24px;right:24px;top:0;height:2px;border-radius:2px;background:linear-gradient(90deg,#0000,var(--a),#0000);box-shadow:0 0 22px var(--a)}
+.cpu{--a:var(--c)}.gpu{--a:var(--o)}
+h2{font:600 13px var(--mono);letter-spacing:.18em;color:var(--a);display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+h2 small{color:var(--mu);letter-spacing:.05em;font-weight:400}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.big{font:700 clamp(34px,3.4vw,52px)/1 var(--mono);letter-spacing:-.03em}
+.big u{text-decoration:none;font-size:.4em;color:var(--mu);margin-left:4px}
+.lbl{font:500 11px var(--mono);color:var(--mu);letter-spacing:.12em;margin-bottom:4px}
+svg text{font-family:var(--mono)}
+.chart{margin:12px 0 4px;height:130px;position:relative}
+.chart svg{width:100%;height:100%;overflow:visible}
+.tabs{display:flex;gap:6px;font:11px var(--mono);color:var(--mu)}
+.tabs b{margin-right:auto;font-weight:400}
+.tabs button{all:unset;cursor:pointer;padding:2px 8px;border-radius:6px}
+.tabs button.on{color:var(--a);box-shadow:inset 0 0 0 1px var(--a)}
+.rows{margin-top:16px}
+.row{display:grid;grid-template-columns:1fr auto;padding:9px 0 0}
+.row span:first-child{color:#aeb7d6}.row span:last-child{font:600 15px var(--mono)}
+.row em{font-style:normal;color:var(--mu);font-size:.8em;margin-left:3px}
+.bar{grid-column:1/-1;height:3px;margin-top:7px;background:#ffffff10;border-radius:3px}
+.bar i{display:block;height:100%;width:0;border-radius:3px;background:var(--a);box-shadow:0 0 10px var(--a);transition:width .5s,background .5s}
+.case svg{width:100%;display:block;margin-top:6px}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.led{transition:fill .25s;filter:url(#glow)}
+#rgbinfo{font:11px var(--mono);color:var(--mu);margin-top:8px;word-break:break-word}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font:11px var(--mono);box-shadow:inset 0 0 0 1px var(--a);color:var(--a)}
+@media(prefers-reduced-motion:reduce){.spin{animation:none}}
+
+.wrap{max-width:1300px;margin:auto;padding:26px;display:grid;gap:22px}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.top .t{font:800 34px var(--mono);letter-spacing:-.03em}.top .t span{color:var(--c);text-shadow:0 0 22px var(--c)}
+.top nav a{color:var(--mu);font:12px var(--mono);text-decoration:none;margin-right:16px}
+.stats{display:flex;gap:44px}.stats div{text-align:right}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+.cols h2{justify-content:center;color:var(--tx)}
+.gauge{display:flex;align-items:center;gap:18px;margin:6px 0 18px}
+.g{position:relative;width:96px;height:96px;flex:none}.g svg{transform:rotate(-90deg);width:100%;height:100%}
+.g circle{fill:none;stroke-width:5}.g .bg{stroke:#ffffff12}
+.g .fg{stroke:var(--a);stroke-linecap:round;stroke-dasharray:125.7;stroke-dashoffset:125.7;transition:stroke-dashoffset .6s;filter:drop-shadow(0 0 6px var(--a))}
+.g b{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font:700 18px var(--mono)}.g b small{font:10px var(--mono);color:var(--mu)}
+.tv{font:700 clamp(30px,3vw,46px) var(--mono);transition:color .5s}
+.chips{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 14px;margin-top:16px}
+.chip{font:12px var(--mono);color:var(--mu)}.chip b{float:right;color:var(--tx)}
+.ok{color:var(--g)}.wr{color:var(--y)}.bd{color:var(--r)}</style></head>
+<body><div class="bg"><i></i><i></i></div><div class="wrap">
+<header class="card top"><div class="t">PC <span>HUD</span></div>
+<nav><a href="index.html">← корпус и подсветка</a></nav>
+<div class="stats"><div><div class="lbl">GPU POWER</div><div class="big" id="hp">–<u>Вт</u></div></div>
+<div><div class="lbl">CPU LOAD</div><div class="big" id="hl" style="color:var(--c)">–<u>%</u></div></div></div></header>
+<div class="cols">
+<section class="card cpu"><h2>CPU CORE</h2><div class="gauge"><div class="g"><svg viewBox="0 0 50 50"><circle class="bg" cx="25" cy="25" r="20"/><circle class="fg" id="g1" cx="25" cy="25" r="20"/></svg><b><span id="c1">–</span><small>МГц</small></b></div><div class="tv" id="t1">–</div></div>
+<div class="rows" id="r1"></div></section>
+<section class="card gpu"><h2>GPU CORE</h2><div class="gauge"><div class="g"><svg viewBox="0 0 50 50"><circle class="bg" cx="25" cy="25" r="20"/><circle class="fg" id="g2" cx="25" cy="25" r="20"/></svg><b><span id="c2">–</span><small>МГц</small></b></div><div class="tv" id="t2">–</div></div>
+<div class="rows" id="r2"></div></section>
+<section class="card"><h2>OTHER SENSORS</h2><div class="gauge"><div class="g"><svg viewBox="0 0 50 50"><circle class="bg" cx="25" cy="25" r="20"/><circle class="fg" id="g3" cx="25" cy="25" r="20"/></svg><b><span id="c3">–</span><small>RPM</small></b></div><div><div class="tv" style="font-size:24px">CPU Fan</div><div class="lbl" id="fl"></div></div></div>
+<div class="rows" id="r3"></div><div class="chips" id="chips"></div></section>
+</div></div>
+<script>
+const $=i=>document.getElementById(i),g=(o,p)=>p.split(".").reduce((a,k)=>a?.[k],o);
+const R={r1:[["Загрузка","cpu.usage","%",100],["Частота","cpu.freq","МГц",5300],["Температура","cpu.temp","°C",95],["Load avg (1м)","load","",16]],
+r2:[["Мощность","gpu.power","Вт",200],["Загрузка","gpu.util","%",100],["Мем. частота","gpu.mclock","МГц",11000],["VRAM","gpu.vram","МБ","gpu.vram_total"],["Вентилятор","gpu.fan","%",100]],
+r3:[["NVMe","nvme","°C",85],["RAM","mem.used","МБ","mem.total"],["Аптайм","uptime","ч",240]]};
+for(const k in R)$(k).innerHTML=R[k].map(r=>`<div class="row"><span>${r[0]}</span><span id="v-${r[1]}">–</span><div class="bar"><i id="b-${r[1]}"></i></div></div>`).join("");
+const cls=t=>t>=85?"bd":t>=70?"wr":"ok",gauge=(id,v,m)=>$(id).style.strokeDashoffset=125.7*(1-Math.min(1,(v||0)/m));
+function paint(d){const t=Date.now()/1e3;
+ if(!d)d={cpu:{temp:45+6*Math.sin(t),usage:30+20*Math.sin(t/2),freq:3800+300*Math.sin(t)},gpu:{temp:50+5*Math.sin(t/3),power:120+30*Math.sin(t),clock:2400,mclock:9000,util:60,vram:5000,vram_total:12288,fan:40},mem:{used:9000,total:32000},nvme:38,fans:{fan1:1150},temps:{"k10temp/Tccd1":52,"acpitz/temp1":41,"nvme/Sensor 1":40,"nvme/Sensor 2":44},load:2.1,uptime:36000};
+ $("hp").innerHTML=Math.round(d.gpu?.power||0)+"<u>Вт</u>";$("hl").innerHTML=Math.round(d.cpu.usage||0)+"<u>%</u>";
+ $("c1").textContent=Math.round(d.cpu.freq||0);gauge("g1",d.cpu.freq,5300);$("t1").innerHTML=`<span class="${cls(d.cpu.temp)}">${(d.cpu.temp||0).toFixed(1)}°C</span>`;
+ if(d.gpu){$("c2").textContent=Math.round(d.gpu.clock);gauge("g2",d.gpu.clock,3000);$("t2").innerHTML=`<span class="${cls(d.gpu.temp)}">${d.gpu.temp.toFixed(1)}°C</span>`}
+ const fr=Math.round(Object.values(d.fans||{}).find(v=>v>0)||0);$("c3").textContent=fr||"–";gauge("g3",fr,2500);$("fl").textContent=fr?"":"обороты не читаются (nct6775?)";
+ d.uptime_h=d.uptime/3600;
+ for(const k in R)R[k].forEach(([,p,u,mx])=>{const v=p=="uptime"?d.uptime_h:g(d,p),m=typeof mx=="string"?g(d,mx):mx;
+  $("v-"+p).innerHTML=v==null?"–":(p=="load"?v.toFixed(2):Math.round(v))+"<em>"+u+"</em>";$("b-"+p).style.width=(v==null?0:Math.min(100,v/m*100))+"%"});
+ $("chips").innerHTML=Object.entries(d.temps||{}).slice(0,12).map(([k,v])=>`<div class="chip">${k.split("/").pop()}<b class="${cls(v)}">${Math.round(v)}°C</b></div>`).join("")}
+async function tick(){let d=null;try{d=await(await fetch("/api/stats")).json()}catch(e){}paint(d)}
+tick();setInterval(tick,1000);
+</script></body></html>
