@@ -12,14 +12,28 @@
     #openrgb-with-all-plugins
     qbittorrent
     amnezia-vpn
+    rstudio
+
+    droidcam
+    android-tools # предоставляет adb
+
+    rhythmbox
+    libgpod
+    pkgs.iloader
 
     tree
     micro
     vscodium
     discord
-    vesktop
     yandex-music
-    
+    obsidian
+
+    #ide
+    #jetbrains.pycharm
+    vesktop
+    rstudio
+    R
+
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
         (writeShellScriptBin "zen-browser" ''exec zen-beta "$@"'')  
   ];

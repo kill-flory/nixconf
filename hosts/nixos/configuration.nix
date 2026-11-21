@@ -16,7 +16,9 @@
     ../../modules/nixos/boot.nix
     ../../modules/nixos/sddm.nix
     ../../modules/nixos/fl-studio.nix
-       ../../modules/nixos/hud.nix
+    ../../modules/nixos/hud.nix
+    ../../modules/nixos/r-labs.nix
+    ../../modules/nixos/ios-usb.nix
   ];
 
   system.stateVersion = "26.05";

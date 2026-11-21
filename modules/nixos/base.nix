@@ -1,5 +1,5 @@
 # Базовая система: загрузчик, сеть, локаль, пользователь, nix.
-{ pkgs, user, hostname, ... }:
+{ config, pkgs, user, hostname, ... }:
 
 {
   # --- Загрузчик ---
@@ -55,6 +55,13 @@
     shell = pkgs.fish;
     extraGroups = [ "networkmanager" "wheel" "video" "input" ];
   };
+
+  # ---droidcam---
+  boot.kernelModules = [ "v4l2loopback" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+
+  # ---R-studio---
+  nixpkgs.config.permittedInsecurePackages = [ "electron-41.10.6" ];
 
   # Только базовый минимум; пользовательские программы — в modules/home-manager/apps.nix
   environment.systemPackages = with pkgs; [
